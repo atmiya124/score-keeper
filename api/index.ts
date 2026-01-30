@@ -1,8 +1,8 @@
 /**
- * Vercel serverless entry: export the Express app for all routes.
- * Static assets are served from public/ by Vercel; this app handles API and SPA fallback.
+ * Vercel serverless: handles /api/* only.
+ * Root (/) and static files are served from public/ by Vercel.
  */
-import { createApp } from "./server/app";
+import { createApp } from "../server/app";
 import type { IncomingMessage, ServerResponse } from "http";
 
 let appPromise: ReturnType<typeof createApp> | null = null;
