@@ -147,7 +147,7 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="homeScore"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Player 1 Score</FormLabel>
+                    <FormLabel>Team A Score</FormLabel>
                     <FormControl>
                       <div className="flex items-center gap-2">
                         <Button 
@@ -182,7 +182,7 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="awayScore"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Player 2 Score</FormLabel>
+                    <FormLabel>Team B Score</FormLabel>
                     <FormControl>
                       <div className="flex items-center gap-2">
                         <Button 
