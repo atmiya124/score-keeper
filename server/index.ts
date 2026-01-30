@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { createApp, log } from "./app";
 import { serveStatic } from "./static";
 
@@ -15,14 +16,10 @@ import { serveStatic } from "./static";
   }
 
   const port = parseInt(process.env.PORT || "5000", 10);
-  httpServer.listen(
-    {
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    },
-    () => {
-      log(`serving on port ${port}`);
-    },
-  );
+  // Windows can throw ENOTSUP with 0.0.0.0 + reusePort; use 127.0.0.1 when needed
+  const host =
+    process.platform === "win32" ? "127.0.0.1" : "0.0.0.0";
+  httpServer.listen(port, host, () => {
+    log(`serving on http://${host}:${port}`);
+  });
 })();
