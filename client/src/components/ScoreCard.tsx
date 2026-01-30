@@ -25,8 +25,8 @@ export function ScoreCard({ match }: ScoreCardProps) {
           
           {/* Home Team */}
           <div className="flex flex-col items-center flex-1 order-2 md:order-1">
-            <div className="px-8 py-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-500/20 mb-6 flex items-center justify-center border border-white/20">
-              <span className="text-2xl md:text-4xl font-bold font-display text-white tracking-wide uppercase">
+            <div className="w-full max-w-[320px] py-4 rounded-3xl bg-blue-500/80 shadow-lg shadow-blue-500/20 mb-6 flex items-center justify-center border border-white/30 backdrop-blur-md">
+              <span className="text-2xl md:text-4xl font-bold font-display text-white tracking-wide uppercase text-center px-4">
                 {match.homeTeam}
               </span>
             </div>
@@ -75,8 +75,8 @@ export function ScoreCard({ match }: ScoreCardProps) {
 
           {/* Away Team */}
           <div className="flex flex-col items-center flex-1 order-3">
-            <div className="px-8 py-3 rounded-xl bg-gradient-to-br from-pink-500 to-rose-700 shadow-lg shadow-pink-500/20 mb-6 flex items-center justify-center border border-white/20">
-              <span className="text-2xl md:text-4xl font-bold font-display text-white tracking-wide uppercase">
+            <div className="w-full max-w-[320px] py-4 rounded-3xl bg-pink-500/80 shadow-lg shadow-pink-500/20 mb-6 flex items-center justify-center border border-white/30 backdrop-blur-md">
+              <span className="text-2xl md:text-4xl font-bold font-display text-white tracking-wide uppercase text-center px-4">
                 {match.awayTeam}
               </span>
             </div>
