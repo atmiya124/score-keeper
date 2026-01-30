@@ -42,7 +42,7 @@ export function ScoreCard({ match }: ScoreCardProps) {
               ))}
             </div>
             <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Team A
+              Player 1 / 2
             </span>
           </div>
 
@@ -109,7 +109,7 @@ export function ScoreCard({ match }: ScoreCardProps) {
               ))}
             </div>
             <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Team B
+              Player 1 / 2
             </span>
           </div>
         </div>
