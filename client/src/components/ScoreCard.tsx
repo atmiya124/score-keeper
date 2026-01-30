@@ -38,12 +38,12 @@ export function ScoreCard({ match }: ScoreCardProps) {
 
           {/* Score & Time */}
           <div className="flex flex-col items-center justify-center order-1 md:order-2 shrink-0">
-            <div className="flex items-center gap-6 md:gap-12 mb-6">
-              <span className="text-7xl md:text-9xl font-black text-white font-mono tracking-tighter drop-shadow-2xl tabular-nums animate-score-change">
+            <div className="flex items-center gap-8 md:gap-16 mb-8">
+              <span className="text-8xl md:text-[12rem] font-black text-white font-mono tracking-tighter drop-shadow-2xl tabular-nums animate-score-change leading-none">
                 {match.homeScore}
               </span>
-              <div className="h-16 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-              <span className="text-7xl md:text-9xl font-black text-white font-mono tracking-tighter drop-shadow-2xl tabular-nums animate-score-change">
+              <div className="h-24 md:h-32 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+              <span className="text-8xl md:text-[12rem] font-black text-white font-mono tracking-tighter drop-shadow-2xl tabular-nums animate-score-change leading-none">
                 {match.awayScore}
               </span>
             </div>
