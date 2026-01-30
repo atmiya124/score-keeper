@@ -58,7 +58,7 @@ export default function Home() {
           <div className="grid gap-8">
             {displayMatches.length > 0 ? (
               displayMatches.map(match => (
-                <div key={match.id} className="transform hover:scale-[1.01] transition-transform duration-300">
+                <div key={match.id} className="">
                   <ScoreCard match={match} />
                 </div>
               ))

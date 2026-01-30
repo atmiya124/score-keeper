@@ -8,10 +8,7 @@ interface ScoreCardProps {
 
 export function ScoreCard({ match }: ScoreCardProps) {
   return (
-    <div className="w-full max-w-4xl mx-auto p-1 relative group">
-      {/* Glow effect */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-      
+    <div className="w-full max-w-4xl mx-auto p-1 relative">
       <div className="relative glass-panel rounded-2xl overflow-hidden">
         {/* Header Bar */}
         <div className="bg-black/40 px-6 py-4 flex justify-center items-center border-b border-white/5">
