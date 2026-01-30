@@ -37,13 +37,13 @@ export default function Home() {
         {/* Header */}
         <header className="flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-display font-bold text-white tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
               Atmiya Badminton 2026
             </h1>
           </div>
           <Link href="/admin">
-            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white hover:bg-white/10 rounded-full">
-              <Settings className="w-5 h-5" />
+            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white hover:bg-white/10 rounded-full h-12 w-12">
+              <Settings className="w-8 h-8" />
             </Button>
           </Link>
         </header>
