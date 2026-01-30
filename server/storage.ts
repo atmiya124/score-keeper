@@ -1,38 +1,42 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { matches, type Match, type InsertMatch } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getMatches(): Promise<Match[]>;
+  getMatch(id: number): Promise<Match | undefined>;
+  createMatch(match: InsertMatch): Promise<Match>;
+  updateMatch(id: number, match: Partial<InsertMatch>): Promise<Match>;
+  deleteMatch(id: number): Promise<void>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getMatches(): Promise<Match[]> {
+    return await db.select().from(matches);
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getMatch(id: number): Promise<Match | undefined> {
+    const [match] = await db.select().from(matches).where(eq(matches.id, id));
+    return match;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async createMatch(insertMatch: InsertMatch): Promise<Match> {
+    const [match] = await db.insert(matches).values(insertMatch).returning();
+    return match;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async updateMatch(id: number, updates: Partial<InsertMatch>): Promise<Match> {
+    const [updated] = await db
+      .update(matches)
+      .set(updates)
+      .where(eq(matches.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteMatch(id: number): Promise<void> {
+    await db.delete(matches).where(eq(matches.id, id));
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
