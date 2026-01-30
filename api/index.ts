@@ -16,10 +16,24 @@ export default async function handler(
   req: IncomingMessage,
   res: ServerResponse,
 ) {
-  const { app } = await getApp();
-  return new Promise<void>((resolve, reject) => {
-    res.on("finish", () => resolve());
-    res.on("error", reject);
-    app(req, res);
-  });
+  try {
+    const { app } = await getApp();
+    return new Promise<void>((resolve, reject) => {
+      res.on("finish", () => resolve());
+      res.on("error", reject);
+      app(req, res);
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Server error";
+    const isDbMissing = message.includes("DATABASE_URL");
+    res.statusCode = isDbMissing ? 503 : 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(
+      JSON.stringify({
+        error: isDbMissing
+          ? "DATABASE_URL is not set. Add it in Vercel Project Settings → Environment Variables."
+          : message,
+      }),
+    );
+  }
 }
