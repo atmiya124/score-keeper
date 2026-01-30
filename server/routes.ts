@@ -62,13 +62,13 @@ export async function registerRoutes(
     const matches = await storage.getMatches();
     if (matches.length === 0) {
       await storage.createMatch({
-        homeTeam: "Inter Milan",
-        awayTeam: "Chelsea",
+        homeTeam: "Team A",
+        awayTeam: "Team B",
         homeScore: 0,
-        awayScore: 1,
-        time: "90 + 4",
-        stadium: "Stamford Bridge",
-        week: "Week 10",
+        awayScore: 0,
+        time: "12:00",
+        stadium: "Atmiya Badminton 2026",
+        week: "",
         isLive: true,
       });
     }

@@ -111,9 +111,9 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="homeTeam"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Home Team</FormLabel>
+                    <FormLabel>Player 1 Team / Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Lakers" className="bg-white/5 border-white/10" {...field} />
+                      <Input placeholder="e.g. Team A" className="bg-white/5 border-white/10" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -124,9 +124,9 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="awayTeam"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Away Team</FormLabel>
+                    <FormLabel>Player 2 Team / Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Warriors" className="bg-white/5 border-white/10" {...field} />
+                      <Input placeholder="e.g. Team B" className="bg-white/5 border-white/10" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -139,7 +139,7 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="homeScore"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Home Score</FormLabel>
+                    <FormLabel>Player 1 Score</FormLabel>
                     <FormControl>
                       <div className="flex items-center gap-2">
                         <Button 
@@ -174,7 +174,7 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="awayScore"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Away Score</FormLabel>
+                    <FormLabel>Player 2 Score</FormLabel>
                     <FormControl>
                       <div className="flex items-center gap-2">
                         <Button 
@@ -211,9 +211,9 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="stadium"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Stadium</FormLabel>
+                    <FormLabel>Event / Location</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Crypto.com Arena" className="bg-white/5 border-white/10" {...field} />
+                      <Input placeholder="e.g. Atmiya Badminton 2026" className="bg-white/5 border-white/10" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

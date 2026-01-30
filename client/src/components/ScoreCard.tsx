@@ -19,10 +19,6 @@ export function ScoreCard({ match }: ScoreCardProps) {
             <MapPin className="w-4 h-4 text-primary" />
             {match.stadium}
           </div>
-          <div className="flex items-center gap-2 text-white/60 text-sm font-medium tracking-wider uppercase">
-            <Calendar className="w-4 h-4 text-primary" />
-            Week {match.week}
-          </div>
         </div>
 
         {/* Main Score Area */}
@@ -39,7 +35,7 @@ export function ScoreCard({ match }: ScoreCardProps) {
               {match.homeTeam}
             </h2>
             <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Home
+              Player 1
             </span>
           </div>
 
@@ -99,7 +95,7 @@ export function ScoreCard({ match }: ScoreCardProps) {
               {match.awayTeam}
             </h2>
             <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Away
+              Player 2
             </span>
           </div>
         </div>
