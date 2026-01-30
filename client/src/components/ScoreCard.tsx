@@ -41,9 +41,6 @@ export function ScoreCard({ match }: ScoreCardProps) {
                 </span>
               ))}
             </div>
-            <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Player 1 / 2
-            </span>
           </div>
 
           {/* Score & Time */}
@@ -108,9 +105,6 @@ export function ScoreCard({ match }: ScoreCardProps) {
                 </span>
               ))}
             </div>
-            <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Player 1 / 2
-            </span>
           </div>
         </div>
       </div>
