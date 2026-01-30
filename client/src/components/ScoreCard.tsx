@@ -25,14 +25,11 @@ export function ScoreCard({ match }: ScoreCardProps) {
           
           {/* Home Team */}
           <div className="flex flex-col items-center flex-1 order-2 md:order-1">
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 p-1 shadow-lg shadow-blue-500/20 mb-4 flex items-center justify-center">
-              <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-3xl font-bold font-display text-white border border-white/10">
-                {match.homeTeam.substring(0, 2).toUpperCase()}
-              </div>
+            <div className="px-6 py-2 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-500/20 mb-4 flex items-center justify-center border border-white/20">
+              <span className="text-xl md:text-2xl font-bold font-display text-white tracking-wide uppercase">
+                {match.homeTeam}
+              </span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white text-center font-display tracking-tight leading-none mb-4">
-              {match.homeTeam}
-            </h2>
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {match.homePlayers?.map((player, idx) => (
                 <span key={idx} className="px-3 py-1 rounded-full bg-blue-500/20 text-[10px] font-bold tracking-widest text-blue-300 uppercase border border-blue-500/30">
@@ -89,14 +86,11 @@ export function ScoreCard({ match }: ScoreCardProps) {
 
           {/* Away Team */}
           <div className="flex flex-col items-center flex-1 order-3">
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-pink-500 to-rose-700 p-1 shadow-lg shadow-pink-500/20 mb-4 flex items-center justify-center">
-              <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-3xl font-bold font-display text-white border border-white/10">
-                {match.awayTeam.substring(0, 2).toUpperCase()}
-              </div>
+            <div className="px-6 py-2 rounded-xl bg-gradient-to-br from-pink-500 to-rose-700 shadow-lg shadow-pink-500/20 mb-4 flex items-center justify-center border border-white/20">
+              <span className="text-xl md:text-2xl font-bold font-display text-white tracking-wide uppercase">
+                {match.awayTeam}
+              </span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white text-center font-display tracking-tight leading-none mb-4">
-              {match.awayTeam}
-            </h2>
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {match.awayPlayers?.map((player, idx) => (
                 <span key={idx} className="px-3 py-1 rounded-full bg-pink-500/20 text-[10px] font-bold tracking-widest text-pink-300 uppercase border border-pink-500/30">
