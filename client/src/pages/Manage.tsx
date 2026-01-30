@@ -48,7 +48,7 @@ export default function ManageMatch() {
 
   // Sync timer to DB occasionally
   useEffect(() => {
-    if (isRunning && seconds % 10 === 0 && match) {
+    if (isRunning && match) {
       const timeStr = `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
       updateMutation.mutate({ id: match.id, time: timeStr });
     }

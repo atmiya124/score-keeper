@@ -13,8 +13,8 @@ export function useMatches() {
       if (!res.ok) throw new Error("Failed to fetch matches");
       return await res.json();
     },
-    // Poll every 5 seconds for live scores
-    refetchInterval: 5000,
+    // Poll every 2 seconds for live scores
+    refetchInterval: 2000,
   });
 }
 
