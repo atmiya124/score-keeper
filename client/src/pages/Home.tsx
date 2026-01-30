@@ -37,11 +37,8 @@ export default function Home() {
         {/* Header */}
         <header className="flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center font-display font-black text-white text-xl shadow-lg shadow-primary/25">
-              S
-            </div>
             <h1 className="text-2xl font-display font-bold text-white tracking-tight">
-              ScoreBoard<span className="text-primary">.live</span>
+              Atmiya Badminton 2026
             </h1>
           </div>
           <Link href="/admin">
@@ -72,11 +69,6 @@ export default function Home() {
             )}
           </div>
         </section>
-
-        {/* Footer */}
-        <footer className="mt-12 text-center text-white/20 text-xs py-8 border-t border-white/5">
-          <p>© 2024 Sports Broadcast System. All rights reserved.</p>
-        </footer>
       </div>
     </div>
   );

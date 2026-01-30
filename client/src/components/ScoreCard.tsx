@@ -14,9 +14,8 @@ export function ScoreCard({ match }: ScoreCardProps) {
       
       <div className="relative glass-panel rounded-2xl overflow-hidden">
         {/* Header Bar */}
-        <div className="bg-black/40 px-6 py-3 flex justify-between items-center border-b border-white/5">
-          <div className="flex items-center gap-2 text-white/60 text-sm font-medium tracking-wider uppercase">
-            <MapPin className="w-4 h-4 text-primary" />
+        <div className="bg-black/40 px-6 py-3 flex justify-center items-center border-b border-white/5">
+          <div className="text-white/60 text-sm font-medium tracking-wider uppercase">
             {match.stadium}
           </div>
         </div>
