@@ -1,7 +1,7 @@
 import { useMatches, useDeleteMatch } from "@/hooks/use-matches";
 import { MatchControlPanel } from "@/components/MatchControlPanel";
 import { Link } from "wouter";
-import { ArrowLeft, Trash2, Edit, Calendar, Clock, Trophy } from "lucide-react";
+import { ArrowLeft, Trash2, Edit, Calendar, Clock, Trophy, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -132,6 +132,11 @@ export default function Admin() {
 
                   {/* Actions */}
                   <div className="flex gap-2">
+                    <Link href={`/manage?id=${match.id}`}>
+                      <Button variant="secondary" size="icon" className="bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/20" title="Manage Live Match">
+                        <Settings className="w-4 h-4" />
+                      </Button>
+                    </Link>
                     <MatchControlPanel 
                       match={match}
                       trigger={
