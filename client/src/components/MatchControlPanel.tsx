@@ -20,8 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Loader2, Plus, Edit2, Save, X } from "lucide-react";
+import { Loader2, Plus, Save } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
 
@@ -32,7 +31,6 @@ interface MatchControlPanelProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-// Extend schema for form validation
 const formSchema = insertMatchSchema.extend({
   homeScore: z.coerce.number(),
   awayScore: z.coerce.number(),
@@ -46,7 +44,6 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
   const updateMutation = useUpdateMatch();
   const [internalOpen, setInternalOpen] = useState(false);
 
-  // Controlled vs Uncontrolled dialog state
   const isOpen = open !== undefined ? open : internalOpen;
   const setOpen = onOpenChange || setInternalOpen;
 
@@ -113,13 +110,12 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Teams */}
               <FormField
                 control={form.control}
                 name="homeTeam"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Player 1 Team / Name</FormLabel>
+                    <FormLabel>Team A Name</FormLabel>
                     <FormControl>
                       <Input placeholder="e.g. Team A" className="bg-white/5 border-white/10" {...field} />
                     </FormControl>
@@ -132,7 +128,7 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 name="awayTeam"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Player 2 Team / Name</FormLabel>
+                    <FormLabel>Team B Name</FormLabel>
                     <FormControl>
                       <Input placeholder="e.g. Team B" className="bg-white/5 border-white/10" {...field} />
                     </FormControl>
@@ -141,7 +137,33 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 )}
               />
 
-              {/* Scores */}
+              <FormField
+                control={form.control}
+                name="homePlayers"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Team A Players (comma separated)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Player 1, Player 2" className="bg-white/5 border-white/10" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="awayPlayers"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Team B Players (comma separated)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Player 3, Player 4" className="bg-white/5 border-white/10" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="homeScore"
@@ -213,7 +235,6 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                 )}
               />
 
-              {/* Details */}
               <FormField
                 control={form.control}
                 name="stadium"
@@ -229,20 +250,6 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
               />
               <FormField
                 control={form.control}
-                name="week"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Week / Round</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. Regular Season - Week 5" className="bg-white/5 border-white/10" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="time"
                 render={({ field }) => (
                   <FormItem>
@@ -251,25 +258,6 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
                       <Input placeholder="00:00" className="bg-white/5 border-white/10 font-mono" {...field} />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="isLive"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col gap-2">
-                    <FormLabel>Status</FormLabel>
-                    <div className="flex items-center space-x-2 border border-white/10 rounded-lg p-3 bg-white/5">
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                      <span className={field.value ? "text-red-400 font-bold" : "text-muted-foreground"}>
-                        {field.value ? "LIVE" : "Finished / Not Started"}
-                      </span>
-                    </div>
                   </FormItem>
                 )}
               />
