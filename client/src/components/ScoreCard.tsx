@@ -31,11 +31,18 @@ export function ScoreCard({ match }: ScoreCardProps) {
                 {match.homeTeam.substring(0, 2).toUpperCase()}
               </div>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white text-center font-display tracking-tight leading-none mb-2">
+            <h2 className="text-2xl md:text-3xl font-bold text-white text-center font-display tracking-tight leading-none mb-4">
               {match.homeTeam}
             </h2>
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
+              {match.homePlayers?.map((player, idx) => (
+                <span key={idx} className="px-3 py-1 rounded-full bg-blue-500/20 text-[10px] font-bold tracking-widest text-blue-300 uppercase border border-blue-500/30">
+                  {player}
+                </span>
+              ))}
+            </div>
             <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Player 1
+              Team A
             </span>
           </div>
 
@@ -91,11 +98,18 @@ export function ScoreCard({ match }: ScoreCardProps) {
                 {match.awayTeam.substring(0, 2).toUpperCase()}
               </div>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white text-center font-display tracking-tight leading-none mb-2">
+            <h2 className="text-2xl md:text-3xl font-bold text-white text-center font-display tracking-tight leading-none mb-4">
               {match.awayTeam}
             </h2>
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
+              {match.awayPlayers?.map((player, idx) => (
+                <span key={idx} className="px-3 py-1 rounded-full bg-pink-500/20 text-[10px] font-bold tracking-widest text-pink-300 uppercase border border-pink-500/30">
+                  {player}
+                </span>
+              ))}
+            </div>
             <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-bold tracking-widest text-white/50 uppercase border border-white/5">
-              Player 2
+              Team B
             </span>
           </div>
         </div>

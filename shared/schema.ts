@@ -6,6 +6,8 @@ export const matches = pgTable("matches", {
   id: serial("id").primaryKey(),
   homeTeam: text("home_team").notNull(),
   awayTeam: text("away_team").notNull(),
+  homePlayers: text("home_players").array(),
+  awayPlayers: text("away_players").array(),
   homeScore: integer("home_score").notNull().default(0),
   awayScore: integer("away_score").notNull().default(0),
   time: text("time").notNull().default("00:00"),

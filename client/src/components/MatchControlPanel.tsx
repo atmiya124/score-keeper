@@ -36,6 +36,8 @@ interface MatchControlPanelProps {
 const formSchema = insertMatchSchema.extend({
   homeScore: z.coerce.number(),
   awayScore: z.coerce.number(),
+  homePlayers: z.string().transform(val => val.split(',').map(s => s.trim()).filter(Boolean)),
+  awayPlayers: z.string().transform(val => val.split(',').map(s => s.trim()).filter(Boolean)),
 });
 
 export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchControlPanelProps) {
@@ -52,12 +54,18 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
 
   const form = useForm<InsertMatch>({
     resolver: zodResolver(formSchema),
-    defaultValues: match || {
+    defaultValues: match ? {
+      ...match,
+      homePlayers: match.homePlayers?.join(', ') || "",
+      awayPlayers: match.awayPlayers?.join(', ') || "",
+    } : {
       homeTeam: "",
       awayTeam: "",
+      homePlayers: "",
+      awayPlayers: "",
       homeScore: 0,
       awayScore: 0,
-      time: "00:00",
+      time: "12:00",
       stadium: "",
       week: "",
       isLive: true,
