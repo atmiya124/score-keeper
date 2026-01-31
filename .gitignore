@@ -10,3 +10,5 @@ vite.config.ts.*
 .env.*.local
 .vercel
 .env*.local
+# Built by npm run build for Vercel
+api/index.js

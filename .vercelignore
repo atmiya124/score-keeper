@@ -1,0 +1,2 @@
+# Use bundled api/index.js from build; do not deploy api/index.ts
+api/index.ts
