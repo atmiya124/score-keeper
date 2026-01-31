@@ -26,6 +26,14 @@ export async function createApp(): Promise<{
   const app = express();
   const httpServer = createServer(app);
 
+  // Allow CORS preflight (OPTIONS) so browsers can send POST/PUT/DELETE
+  app.options("*", (_req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.sendStatus(204);
+  });
+
   app.use(
     express.json({
       verify: (req, _res, buf) => {
