@@ -13,9 +13,10 @@ export function useMatches() {
       if (!res.ok) throw new Error("Failed to fetch matches");
       return await res.json();
     },
-    refetchInterval: 250,
+    refetchInterval: 2000,
     staleTime: 0,
     refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 }
 

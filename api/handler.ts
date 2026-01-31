@@ -18,6 +18,17 @@ export default async function handler(
   res: ServerResponse,
 ) {
   try {
+    // Vercel rewrites /api/matches -> /api?__path=/matches; restore path so Express can route
+    const url = req.url || "";
+    const q = url.indexOf("?");
+    if (q !== -1) {
+      const params = new URLSearchParams(url.slice(q));
+      const path = params.get("__path");
+      if (path) {
+        const rest = params.toString().replace(/\b__path=[^&]+&?/g, "").replace(/&$/, "");
+        (req as IncomingMessage & { url: string }).url = "/api" + decodeURIComponent(path) + (rest ? "?" + rest : "");
+      }
+    }
     const { app } = await getApp();
     return new Promise<void>((resolve, reject) => {
       res.on("finish", () => resolve());
