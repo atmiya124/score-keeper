@@ -1,6 +1,7 @@
 /**
  * Vercel serverless: handles /api/* only.
  * Root (/) and static files are served from public/ by Vercel.
+ * Bundled to api/index.js by npm run build.
  */
 import { createApp } from "../server/app";
 import type { IncomingMessage, ServerResponse } from "http";
