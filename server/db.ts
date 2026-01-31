@@ -14,25 +14,26 @@ if (!process.env.DATABASE_URL) {
     "DATABASE_URL must be set. Did you forget to provision a database?",
   );
 }
-
-// Use Neon serverless driver on Vercel (HTTP, works in serverless)
-// Use node-postgres (pg) locally
-let _db: unknown;
-let _pool: import("pg").Pool | null = null;
-
-if (process.env.VERCEL) {
-  const { neon } = req("@neondatabase/serverless");
-  const { drizzle } = req("drizzle-orm/neon-http");
-  const sql = neon(process.env.DATABASE_URL);
-  _db = drizzle({ client: sql, schema });
-} else {
-  const { drizzle } = req("drizzle-orm/node-postgres");
-  const pg = req("pg");
-  _pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
-  _db = drizzle(_pool, { schema });
+// Fix: "scorekeeper" was an old local DB name that doesn't exist. Use "neondb" (Neon).
+let databaseUrl = process.env.DATABASE_URL;
+if (databaseUrl.includes("scorekeeper")) {
+  databaseUrl = databaseUrl.replace(/scorekeeper/g, "neondb");
 }
+
+// Use Neon serverless driver (HTTP) for both local and Vercel.
+// Neon v1 only allows tagged-template sql`...` or sql.query(); Drizzle calls client(sql, params, options).
+// Wrap so client(sql, params, options) forwards to sql.query(sql, params, options).
+const { neon } = req("@neondatabase/serverless");
+const { drizzle } = req("drizzle-orm/neon-http");
+const neonClient = neon(databaseUrl);
+const client = Object.assign(
+  (query: string, params?: unknown[], options?: Record<string, unknown>) =>
+    neonClient.query(query, params ?? [], options as never),
+  { transaction: neonClient.transaction?.bind(neonClient) }
+);
+const _db = drizzle({ client, schema });
 
 export const db = _db as import("drizzle-orm/node-postgres").NodePgDatabase<
   typeof schema
 >;
-export const pool = _pool;
+export const pool = null as unknown as import("pg").Pool;

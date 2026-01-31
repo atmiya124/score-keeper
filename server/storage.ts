@@ -20,8 +20,11 @@ export class DatabaseStorage implements IStorage {
     return match;
   }
 
+  /** Create match = replace: only one match is shown on the big screen at a time. Delete any existing match, then insert. */
   async createMatch(insertMatch: InsertMatch): Promise<Match> {
+    await db.delete(matches); // Remove old match(es) so there is only one
     const [match] = await db.insert(matches).values(insertMatch).returning();
+    if (!match) throw new Error("Insert failed: no row returned");
     return match;
   }
 

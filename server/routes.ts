@@ -25,13 +25,15 @@ export async function registerRoutes(
       const match = await storage.createMatch(input);
       res.status(201).json(match);
     } catch (err) {
-        if (err instanceof z.ZodError) {
-          return res.status(400).json({
-            message: err.errors[0].message,
-            field: err.errors[0].path.join('.'),
-          });
-        }
-        throw err;
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({
+          message: err.errors[0].message,
+          field: err.errors[0].path.join('.'),
+        });
+      }
+      const message = err instanceof Error ? err.message : "Failed to create match";
+      console.error("POST /api/matches error:", err);
+      return res.status(500).json({ message });
     }
   });
 
@@ -56,25 +58,6 @@ export async function registerRoutes(
     await storage.deleteMatch(Number(req.params.id));
     res.status(204).send();
   });
-
-  // Seed data if empty
-  try {
-    const matches = await storage.getMatches();
-    if (matches.length === 0) {
-      await storage.createMatch({
-        homeTeam: "Team A",
-        awayTeam: "Team B",
-        homeScore: 0,
-        awayScore: 0,
-        time: "12:00",
-        stadium: "Atmiya Badminton 2026",
-        week: "",
-        isLive: true,
-      });
-    }
-  } catch (err) {
-    console.error("Failed to seed database:", err);
-  }
 
   return httpServer;
 }

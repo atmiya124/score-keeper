@@ -8,7 +8,7 @@ interface ScoreCardProps {
 
 export function ScoreCard({ match }: ScoreCardProps) {
   return (
-    <div className="w-full max-w-4xl mx-auto p-1 relative">
+    <div className="w-full max-w-7xl mx-auto p-1 relative">
       <div className="relative glass-panel rounded-2xl overflow-hidden">
         {/* Header Bar */}
         <div className="bg-black/40 px-6 py-4 flex justify-center items-center border-b border-white/5">

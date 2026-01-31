@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Loader2, Plus, Save } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { z } from "zod";
 
 interface MatchControlPanelProps {
@@ -37,6 +37,19 @@ const formSchema = insertMatchSchema.extend({
   homePlayers: z.string().transform(val => val.split(',').map(s => s.trim()).filter(Boolean)),
   awayPlayers: z.string().transform(val => val.split(',').map(s => s.trim()).filter(Boolean)),
 });
+
+const CREATE_DEFAULTS = {
+  homeTeam: "",
+  awayTeam: "",
+  homePlayers: "",
+  awayPlayers: "",
+  homeScore: 0,
+  awayScore: 0,
+  time: "12:00",
+  stadium: "",
+  week: "",
+  isLive: true,
+};
 
 export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchControlPanelProps) {
   const { toast } = useToast();
@@ -55,19 +68,22 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
       ...match,
       homePlayers: match.homePlayers?.join(', ') || "",
       awayPlayers: match.awayPlayers?.join(', ') || "",
-    } : {
-      homeTeam: "",
-      awayTeam: "",
-      homePlayers: "",
-      awayPlayers: "",
-      homeScore: 0,
-      awayScore: 0,
-      time: "12:00",
-      stadium: "",
-      week: "",
-      isLive: true,
-    },
+    } : CREATE_DEFAULTS,
   });
+
+  // When opening create/new-match dialog, always reset to 0–0, time 12:00, etc.
+  useEffect(() => {
+    if (isOpen && !match) {
+      form.reset(CREATE_DEFAULTS);
+    }
+    if (isOpen && match) {
+      form.reset({
+        ...match,
+        homePlayers: match.homePlayers?.join(', ') || "",
+        awayPlayers: match.awayPlayers?.join(', ') || "",
+      });
+    }
+  }, [isOpen, match?.id]);
 
   const onSubmit = async (data: InsertMatch) => {
     try {
@@ -81,9 +97,10 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
       }
       setOpen(false);
     } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to save match details.";
       toast({ 
         title: "Error", 
-        description: "Failed to save match details.", 
+        description: message, 
         variant: "destructive" 
       });
     }
@@ -95,7 +112,7 @@ export function MatchControlPanel({ match, trigger, open, onOpenChange }: MatchC
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
-          <Button className="gap-2 bg-primary hover:bg-primary/90">
+          <Button type="button" className="gap-2 bg-primary hover:bg-primary/90">
             <Plus className="w-4 h-4" /> Create Match
           </Button>
         )}

@@ -15,7 +15,7 @@ import { serveStatic } from "./static";
     await setupVite(httpServer, app);
   }
 
-  const port = parseInt(process.env.PORT || "5000", 10);
+  const port = parseInt(process.env.PORT || "5001", 10);
   // Windows can throw ENOTSUP with 0.0.0.0 + reusePort; use 127.0.0.1 when needed
   const host =
     process.platform === "win32" ? "127.0.0.1" : "0.0.0.0";

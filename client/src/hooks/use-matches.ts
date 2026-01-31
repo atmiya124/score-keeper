@@ -13,8 +13,9 @@ export function useMatches() {
       if (!res.ok) throw new Error("Failed to fetch matches");
       return await res.json();
     },
-    // Poll every 2 seconds for live scores
-    refetchInterval: 2000,
+    refetchInterval: 250,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 }
 
@@ -26,7 +27,9 @@ export function useMatch(id: number) {
       if (!res.ok) throw new Error("Failed to fetch match");
       return await res.json();
     },
-    refetchInterval: 2000, // Faster polling for single match detail
+    refetchInterval: false,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 }
 
@@ -37,8 +40,9 @@ export function useCreateMatch() {
       const res = await apiRequest("POST", api.matches.create.path, data);
       return await res.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [api.matches.list.path] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [api.matches.list.path] });
+      await queryClient.refetchQueries({ queryKey: [api.matches.list.path] });
     },
   });
 }
@@ -51,8 +55,14 @@ export function useUpdateMatch() {
       const res = await apiRequest("PUT", path, data);
       return await res.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [api.matches.list.path] });
+    onSuccess: async (_data, variables) => {
+      await queryClient.invalidateQueries({ queryKey: [api.matches.list.path] });
+      await queryClient.refetchQueries({ queryKey: [api.matches.list.path] });
+      if (variables?.id != null) {
+        await queryClient.invalidateQueries({
+          queryKey: [api.matches.get.path.replace(":id", String(variables.id))],
+        });
+      }
     },
   });
 }
@@ -64,8 +74,14 @@ export function useDeleteMatch() {
       const path = api.matches.delete.path.replace(":id", String(id));
       await apiRequest("DELETE", path);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [api.matches.list.path] });
+    onSuccess: async (_data, id) => {
+      await queryClient.invalidateQueries({ queryKey: [api.matches.list.path] });
+      await queryClient.refetchQueries({ queryKey: [api.matches.list.path] });
+      if (id != null) {
+        await queryClient.invalidateQueries({
+          queryKey: [api.matches.get.path.replace(":id", String(id))],
+        });
+      }
     },
   });
 }

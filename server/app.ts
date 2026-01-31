@@ -27,11 +27,14 @@ export async function createApp(): Promise<{
   const httpServer = createServer(app);
 
   // Allow CORS preflight (OPTIONS) so browsers can send POST/PUT/DELETE
-  app.options("*", (_req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.sendStatus(204);
+  app.use((req, res, next) => {
+    if (req.method === "OPTIONS") {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+      return res.sendStatus(204);
+    }
+    next();
   });
 
   app.use(
@@ -85,7 +88,7 @@ export async function createApp(): Promise<{
 
   // SPA fallback on Vercel (static files are served by Vercel from public/)
   if (process.env.VERCEL) {
-    app.get("*", (req, res, next) => {
+    app.get("/(.*)", (req, res, next) => {
       if (req.path.startsWith("/api")) return next();
       res.sendFile(path.join(process.cwd(), "public", "index.html"));
     });
