@@ -16,7 +16,12 @@ export const matches = pgTable("matches", {
   isLive: boolean("is_live").default(true),
 });
 
+export const comments = pgTable("comments", {
+  comment: text("comment").notNull(),
+});
+
 export const insertMatchSchema = createInsertSchema(matches).omit({ id: true });
 
 export type Match = typeof matches.$inferSelect;
 export type InsertMatch = z.infer<typeof insertMatchSchema>;
+export type Comment = typeof comments.$inferSelect;
