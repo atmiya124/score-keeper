@@ -70,3 +70,82 @@
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
+
+/* Dashboard background loop */
+@keyframes bg-float {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  25% { transform: translate(5%, -5%) scale(1.05); opacity: 0.25; }
+  50% { transform: translate(-3%, 3%) scale(0.98); opacity: 0.18; }
+  75% { transform: translate(4%, 4%) scale(1.02); opacity: 0.22; }
+}
+
+@keyframes bg-float-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  25% { transform: translate(-4%, 4%) scale(1.02); opacity: 0.22; }
+  50% { transform: translate(3%, -3%) scale(0.98); opacity: 0.18; }
+  75% { transform: translate(-5%, -4%) scale(1.05); opacity: 0.25; }
+}
+
+.animate-bg-float {
+  animation: bg-float 12s ease-in-out infinite;
+}
+
+.animate-bg-float-reverse {
+  animation: bg-float-reverse 14s ease-in-out infinite;
+}
+
+/* Shader-style mesh gradient (animated) */
+.shader-gradient {
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(88, 28, 135, 0.35), transparent 50%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(30, 58, 138, 0.35), transparent 50%),
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(126, 34, 206, 0.2), transparent 55%),
+    radial-gradient(ellipse 50% 70% at 90% 10%, rgba(59, 130, 246, 0.25), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 10% 70%, rgba(139, 92, 246, 0.2), transparent 50%);
+  background-size: 100% 100%;
+  animation: shader-gradient-shift 20s ease-in-out infinite;
+}
+
+@keyframes shader-gradient-shift {
+  0%, 100% {
+    opacity: 1;
+    background-position: 0% 0%, 100% 100%, 50% 50%, 100% 0%, 0% 100%;
+  }
+  25% {
+    opacity: 0.95;
+    background-position: 10% 5%, 90% 95%, 55% 45%, 95% 5%, 5% 95%;
+  }
+  50% {
+    opacity: 1;
+    background-position: 5% 10%, 95% 90%, 45% 55%, 90% 10%, 10% 90%;
+  }
+  75% {
+    opacity: 0.95;
+    background-position: 0% 5%, 100% 95%, 50% 50%, 95% 0%, 5% 100%;
+  }
+}
+
+/* Shader gradient orbs (floating blobs that blend) */
+.shader-gradient-orbs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.shader-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: shader-orb-float 18s ease-in-out infinite;
+}
+
+.shader-orb-1 { width: 60%; height: 60%; top: -20%; left: -10%; background: rgba(88, 28, 135, 0.5); animation-delay: 0s; }
+.shader-orb-2 { width: 50%; height: 70%; bottom: -20%; right: -10%; background: rgba(30, 58, 138, 0.5); animation-delay: -6s; }
+.shader-orb-3 { width: 40%; height: 40%; top: 30%; left: 40%; background: rgba(126, 34, 206, 0.3); animation-delay: -12s; }
+
+@keyframes shader-orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  33% { transform: translate(5%, -8%) scale(1.1); opacity: 0.5; }
+  66% { transform: translate(-5%, 5%) scale(0.95); opacity: 0.35; }
+}

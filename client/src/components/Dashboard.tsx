@@ -28,12 +28,21 @@ export function Dashboard() {
   return (
     <div className="min-h-screen bg-slate-950 relative overflow-hidden font-body selection:bg-primary/30">
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-900/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/20 blur-[120px]" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+        <div className="absolute inset-0 z-[1] shader-gradient" />
+        <div className="absolute inset-0 z-[2] shader-gradient-orbs">
+          <div className="shader-orb shader-orb-1" />
+          <div className="shader-orb shader-orb-2" />
+          <div className="shader-orb shader-orb-3" />
+        </div>
+        <img
+          src="/Bg.png"
+          alt=""
+          className="absolute inset-0 z-[3] w-full h-full object-cover pointer-events-none opacity-20"
+        />
+        <div className="absolute inset-0 z-[4] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay" />
       </div>
 
-      <div className="relative z-10 p-4 md:p-8 max-w-7xl mx-auto flex flex-col gap-12">
+      <div className="relative z-20 p-4 md:p-8 max-w-[1700px] mx-auto flex flex-col gap-12">
         <header className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
